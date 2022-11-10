@@ -128,6 +128,9 @@ function buildDescription(data) {
             }
 
             if (data.agreed_creator_guidelines && data.received_works_count > 0) {
+                if (descriptions.length) {
+                    descriptions.push(" - ")
+                }
                 if (data.received_works_count > 1) {
                     descriptions.push("Delivered: " + data.received_works_count.toLocaleString() + " works");
                 } else {
@@ -148,19 +151,23 @@ function buildDescription(data) {
             }
             break;
         case "fr":
+        case "fr-FR":
         case "fr-BE":
         case "fr-CA":
         case "fr-CH":
         case "fr-LU":
             if (data.acceptable) {
-                descriptions.push("Recherche: ¥" + data.default_amount.toLocaleString());
+                descriptions.push("Ouvert : " + data.default_amount.toLocaleString() + " ¥")
             }
 
             if (data.agreed_creator_guidelines && data.received_works_count > 0) {
+                if (descriptions.length) {
+                    descriptions.push(" - ")
+                }
                 if (data.received_works_count > 1) {
-                    descriptions.push("Livré: " + data.received_works_count.toLocaleString() + " commissions");
+                    descriptions.push("Livré : " + data.received_works_count.toLocaleString() + " commissions");
                 } else {
-                    descriptions.push("Livré: " + data.received_works_count.toLocaleString() + " commission");
+                    descriptions.push("Livré : " + data.received_works_count.toLocaleString() + " commission");
                 }
             }
 
