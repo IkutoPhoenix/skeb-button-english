@@ -92,22 +92,91 @@ function sendRequest(uid, success) {
 
 function buildDescription(data) {
     const descriptions = [];
-    if (data.acceptable) {
-        descriptions.push("募集中: " + data.default_amount.toLocaleString() + "円");
-    }
-    
-    if (data.agreed_creator_guidelines && data.received_works_count > 0) {
-        descriptions.push("納品: " + data.received_works_count.toLocaleString() + "件");
-    }
-    
-    if (!descriptions.length) {
-        if (data.sent_public_works_count > 0) {
-            descriptions.push(data.sent_public_works_count.toLocaleString() + "件の取引実績があるクライアント");
-        } else {
-            descriptions.push("登録済み");
-        }
-    }
+    switch(navigator.language) {
+        case "ja":
+        default:
+            if (data.acceptable) {
+                descriptions.push("募集中: " + data.default_amount.toLocaleString() + "円");
+            }
 
+            if (data.agreed_creator_guidelines && data.received_works_count > 0) {
+                descriptions.push("納品: " + data.received_works_count.toLocaleString() + "件");
+            }
+
+            if (!descriptions.length) {
+                if (data.sent_public_works_count > 0) {
+                    descriptions.push(data.sent_public_works_count.toLocaleString() + "件の取引実績があるクライアント");
+                } else {
+                    descriptions.push("登録済み");
+                }
+            }
+            break;
+        case "en":
+        case "en-US":
+        case "en-EG":
+        case "en-AU":
+        case "en-GB":
+        case "en-CA":
+        case "en-NZ":
+        case "en-IE":
+        case "en-ZA":
+        case "en-JM":
+        case "en-BZ":
+        case "en-TT":
+            if (data.acceptable) {
+                descriptions.push("Seeking: ¥" + data.default_amount.toLocaleString());
+            }
+
+            if (data.agreed_creator_guidelines && data.received_works_count > 0) {
+                if (data.received_works_count > 1) {
+                    descriptions.push("Delivered: " + data.received_works_count.toLocaleString() + " works");
+                } else {
+                    descriptions.push("Delivered: " + data.received_works_count.toLocaleString() + " work");
+                }
+            }
+
+            if (!descriptions.length) {
+                if (data.sent_public_works_count > 0) {
+                    if (data.sent_public_works_count > 1) {
+                        descriptions.push(data.sent_public_works_count.toLocaleString() + " request sent");
+                    } else {
+                        descriptions.push(data.sent_public_works_count.toLocaleString() + " requests sent");
+                    }
+                } else {
+                    descriptions.push("Registred");
+                }
+            }
+            break;
+        case "fr":
+        case "fr-BE":
+        case "fr-CA":
+        case "fr-CH":
+        case "fr-LU":
+            if (data.acceptable) {
+                descriptions.push("Recherche: ¥" + data.default_amount.toLocaleString());
+            }
+
+            if (data.agreed_creator_guidelines && data.received_works_count > 0) {
+                if (data.received_works_count > 1) {
+                    descriptions.push("Livré: " + data.received_works_count.toLocaleString() + " commissions");
+                } else {
+                    descriptions.push("Livré: " + data.received_works_count.toLocaleString() + " commission");
+                }
+            }
+
+            if (!descriptions.length) {
+                if (data.sent_public_works_count > 0) {
+                    if (data.sent_public_works_count > 1) {
+                        descriptions.push(data.sent_public_works_count.toLocaleString() + " demandes");
+                    } else {
+                        descriptions.push(data.sent_public_works_count.toLocaleString() + " demande");
+                    }
+                } else {
+                    descriptions.push("Enregistré");
+                }
+            }
+            break;
+    }
     return descriptions;
 }
 
