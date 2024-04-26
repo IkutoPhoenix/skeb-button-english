@@ -92,22 +92,23 @@ function sendRequest(uid, success) {
 
 function buildDescription(data) {
     const descriptions = [];
+    let text = "";
     switch(navigator.language) {
         case "ja":
         default:
             if (data.acceptable) {
-                descriptions.push("募集中: " + data.default_amount.toLocaleString() + "円");
+                text += "募集中: " + data.default_amount.toLocaleString() + "円";
             }
 
             if (data.agreed_creator_guidelines && data.received_works_count > 0) {
-                descriptions.push("納品: " + data.received_works_count.toLocaleString() + "件");
+                text += "納品: " + data.received_works_count.toLocaleString() + "件";
             }
 
-            if (!descriptions.length) {
+            if (!text.length) {
                 if (data.sent_public_works_count > 0) {
-                    descriptions.push(data.sent_public_works_count.toLocaleString() + "件の取引実績があるクライアント");
+                    text += data.sent_public_works_count.toLocaleString() + "件の取引実績があるクライアント";
                 } else {
-                    descriptions.push("登録済み");
+                    text += "登録済み";
                 }
             }
             break;
@@ -124,29 +125,29 @@ function buildDescription(data) {
         case "en-BZ":
         case "en-TT":
             if (data.acceptable) {
-                descriptions.push("Seeking: ¥" + data.default_amount.toLocaleString());
+                text += "Seeking: ¥" + data.default_amount.toLocaleString();
             }
 
             if (data.agreed_creator_guidelines && data.received_works_count > 0) {
-                if (descriptions.length) {
-                    descriptions.push(" - ")
+                if (text.length) {
+                    text += " - ";
                 }
                 if (data.received_works_count > 1) {
-                    descriptions.push("Delivered: " + data.received_works_count.toLocaleString() + " works");
+                    text += "Delivered: " + data.received_works_count.toLocaleString() + " works";
                 } else {
-                    descriptions.push("Delivered: " + data.received_works_count.toLocaleString() + " work");
+                    text += "Delivered: " + data.received_works_count.toLocaleString() + " work";
                 }
             }
 
-            if (!descriptions.length) {
+            if (!text.length) {
                 if (data.sent_public_works_count > 0) {
                     if (data.sent_public_works_count > 1) {
-                        descriptions.push(data.sent_public_works_count.toLocaleString() + " request sent");
+                        text += data.sent_public_works_count.toLocaleString() + " request sent";
                     } else {
-                        descriptions.push(data.sent_public_works_count.toLocaleString() + " requests sent");
+                        text += data.sent_public_works_count.toLocaleString() + " requests sent";
                     }
                 } else {
-                    descriptions.push("Registred");
+                    text += "Registred";
                 }
             }
             break;
@@ -157,33 +158,34 @@ function buildDescription(data) {
         case "fr-CH":
         case "fr-LU":
             if (data.acceptable) {
-                descriptions.push("Ouvert : " + data.default_amount.toLocaleString() + " ¥")
+                text += "Ouvert : " + data.default_amount.toLocaleString() + " ¥";
             }
 
             if (data.agreed_creator_guidelines && data.received_works_count > 0) {
-                if (descriptions.length) {
-                    descriptions.push(" - ")
+                if (text.length) {
+                    text += " - ";
                 }
                 if (data.received_works_count > 1) {
-                    descriptions.push("Livré : " + data.received_works_count.toLocaleString() + " commissions");
+                    text += "Livré : " + data.received_works_count.toLocaleString() + " commissions";
                 } else {
-                    descriptions.push("Livré : " + data.received_works_count.toLocaleString() + " commission");
+                    text += "Livré : " + data.received_works_count.toLocaleString() + " commission";
                 }
             }
 
-            if (!descriptions.length) {
+            if (!text.length) {
                 if (data.sent_public_works_count > 0) {
                     if (data.sent_public_works_count > 1) {
-                        descriptions.push(data.sent_public_works_count.toLocaleString() + " demandes");
+                        text += data.sent_public_works_count.toLocaleString() + " demandes";
                     } else {
-                        descriptions.push(data.sent_public_works_count.toLocaleString() + " demande");
+                        text += data.sent_public_works_count.toLocaleString() + " demande";
                     }
                 } else {
-                    descriptions.push("Enregistré");
+                    text += "Enregistré";
                 }
             }
             break;
     }
+    descriptions.push(text);
     return descriptions;
 }
 
