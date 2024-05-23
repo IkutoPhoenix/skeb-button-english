@@ -6,7 +6,8 @@
 
   "host_permissions": [
     "https://*.twitter.com/",
-    "https://skeb.jp/"
+    "https://skeb.jp/",
+    "https://*.x.com/"
   ],
 
   "action": {
@@ -16,7 +17,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://*.twitter.com/*"],
+      "matches": ["https://*.twitter.com/*", "https://*.x.com/*"],
       "js": ["index.js"]
     }
   ],
